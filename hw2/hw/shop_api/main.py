@@ -11,4 +11,3 @@ app.include_router(cart_router)
 
 for i in range(5):
     storage.add_item(ItemInfo(name=f"name_{i}", price=i))
-

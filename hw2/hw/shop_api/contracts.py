@@ -45,14 +45,14 @@ class ItemPatchRequest(BaseModel):
 
 
 class CartItemResponse(BaseModel):
-    id: int 
-    name: str 
-    quantity: int 
+    id: int
+    name: str
+    quantity: int
     available: bool
 
 
 class CartResponse(BaseModel):
-    id: int 
+    id: int
     items: list[CartItem]
     price: float
 
@@ -64,4 +64,3 @@ class CartListRequest(BaseModel):
     max_price: NonNegativeFloat | None = None
     min_quantity: NonNegativeInt | None = None
     max_quantity: NonNegativeInt | None = None
-

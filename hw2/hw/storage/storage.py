@@ -1,5 +1,6 @@
 from collections import Counter
 from dataclasses import dataclass
+from typing import Self
 
 from hw2.hw.storage.models import ItemEntity, ItemInfo, ItemInfoPatch
 
@@ -38,11 +39,11 @@ class ItemStorage:
     ) -> list[ItemEntity]:
         items = [ItemEntity(id, info) for id, info in self._data.items()]
         items = [
-            item 
-            for item in items 
-            if (min_price is None or min_price <= item.info.price) \
-            and (max_price is None or item.info.price <= max_price) \
-            and (not item.info.deleted or show_deleted) \
+            item
+            for item in items
+            if (min_price is None or min_price <= item.info.price)
+            and (max_price is None or item.info.price <= max_price)
+            and (not item.info.deleted or show_deleted)
             and (item.id >= offset)
         ]
         return items[:limit]
@@ -54,7 +55,7 @@ class ItemStorage:
 
     def put_item(self, id: int, item: ItemInfo) -> ItemEntity:
         self._require_item(id)
-        self._data[id] = item 
+        self._data[id] = item
         return self.get_item(id)
 
     def patch_item(self, id: int, patch: ItemInfoPatch) -> ItemEntity:
@@ -67,16 +68,16 @@ class ItemStorage:
 @dataclass
 class CartItemRecord:
     id: int
-    quantity: int 
+    quantity: int
 
     @staticmethod
-    def from_counter(counter: Counter[int]) -> list[CartItemRecord]:
+    def from_counter(counter: Counter[int]) -> list[Self]:
         return [CartItemRecord(id, cnt) for id, cnt in counter.items()]
 
 
 @dataclass
 class CartRecord:
-    id: int 
+    id: int
     items: list[CartItemRecord]
 
 
@@ -106,7 +107,7 @@ class CartStorage:
 
     def _require_cart(self, id: int):
         if id not in self.carts:
-                    raise RuntimeError(f"Cart {id} not found")
+            raise RuntimeError(f"Cart {id} not found")
 
 
 class Storage:
@@ -144,8 +145,6 @@ class Storage:
         except RuntimeError:
             return None
 
-    
-
     def add_cart(self) -> int:
         return self.cart_storage.add()
 
@@ -156,12 +155,14 @@ class Storage:
             price = 0.0
             for item_record in cart_record.items:
                 item_info = self.item_storage.get_item(item_record.id).info
-                items.append(CartItem(
-                    id=item_record.id,
-                    name=item_info.name,
-                    quantity=item_record.quantity,
-                    available=not item_info.deleted,
-                ))
+                items.append(
+                    CartItem(
+                        id=item_record.id,
+                        name=item_info.name,
+                        quantity=item_record.quantity,
+                        available=not item_info.deleted,
+                    )
+                )
                 if not item_info.deleted:
                     price += item_record.quantity * item_info.price
             return Cart(id, items, price)
@@ -184,15 +185,12 @@ class Storage:
     ) -> list[Cart]:
         carts = [self.get_cart(id) for id in self.cart_storage.get_cart_ids()]
         carts = [
-            cart 
-            for cart in carts 
-            if (min_price is None or min_price <= cart.price) \
-            and (max_price is None or cart.price <= max_price) \
-            and (min_quantity is None or min_quantity <= cart.quantity) \
-            and (max_quantity is None or cart.quantity <= max_quantity) \
+            cart
+            for cart in carts
+            if (min_price is None or min_price <= cart.price)
+            and (max_price is None or cart.price <= max_price)
+            and (min_quantity is None or min_quantity <= cart.quantity)
+            and (max_quantity is None or cart.quantity <= max_quantity)
             and cart.id >= offset
         ]
         return carts[:limit]
-        
-
-    

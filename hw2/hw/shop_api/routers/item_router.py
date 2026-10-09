@@ -13,6 +13,7 @@ from hw2.hw.storage import storage
 
 router = APIRouter(prefix="/item")
 
+
 @router.get("/")
 async def get_items(
     offset: Annotated[NonNegativeInt, Query()] = 0,
@@ -21,7 +22,10 @@ async def get_items(
     max_price: Annotated[PositiveFloat | None, Query()] = None,
     show_deleted: Annotated[bool | None, Query()] = False,
 ) -> list[ItemResponse]:
-    return [ItemResponse.from_item(item) for item in storage.get_items(offset, limit, min_price, max_price, show_deleted)]
+    return [
+        ItemResponse.from_item(item)
+        for item in storage.get_items(offset, limit, min_price, max_price, show_deleted)
+    ]
 
 
 @router.get("/{id}")
@@ -32,7 +36,7 @@ async def get_item(id: int) -> ItemResponse:
             HTTPStatus.NOT_FOUND,
             f"Request resource /item/{id} was not found",
         )
-    
+
     return ItemResponse.from_item(entity)
 
 
@@ -45,10 +49,7 @@ async def post_item(item: ItemRequest, response: Response) -> ItemResponse:
     return ItemResponse.from_item(entity)
 
 
-@router.delete(
-    "/{id}",
-    status_code=HTTPStatus.OK
-)
+@router.delete("/{id}", status_code=HTTPStatus.OK)
 async def delete_item(id: int) -> None:
     storage.delete_item(id)
 

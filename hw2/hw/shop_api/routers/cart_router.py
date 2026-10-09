@@ -8,10 +8,11 @@ from hw2.hw.storage import storage
 
 router = APIRouter(prefix="/cart")
 
+
 @router.post("/", status_code=HTTPStatus.CREATED)
 def post_cart(response: Response) -> CartResponse:
     id = storage.add_cart()
-    response.headers["location"]  = f"/cart/{id}"
+    response.headers["location"] = f"/cart/{id}"
     return storage.get_cart(id)
 
 
@@ -29,7 +30,7 @@ def get_cart(id: int) -> CartResponse:
 @router.get("/")
 def get_carts(params: Annotated[CartListRequest, Query()]) -> list[CartResponse]:
     return storage.get_carts(**params.model_dump())
-    
+
 
 @router.post("/{cart_id}/add/{item_id}")
 def add_cart_item(cart_id: int, item_id: int, response: Response) -> CartResponse:
