@@ -1,4 +1,4 @@
-from typing import Iterable
+from collections.abc import Iterable
 
 from hw2.rest_example.store.models import (
     PatchPokemonInfo,
