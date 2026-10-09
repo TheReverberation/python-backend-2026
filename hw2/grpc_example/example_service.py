@@ -1,5 +1,5 @@
+from collections.abc import Iterable
 from concurrent import futures
-from typing import Iterable
 
 import grpc
 

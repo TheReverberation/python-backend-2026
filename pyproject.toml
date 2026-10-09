@@ -1,0 +1,68 @@
+[project]
+name = "py-backend"
+requires-python = ">=3.11"
+version = "1.0"
+
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle
+    "F",    # pyflakes
+    "I",    # isort
+    "UP",   # pyupgrade
+    "B",    # flake8-bugbear
+]
+
+ignore = [
+    "E501", # line too long — handled by formatter
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+
+
+[tool.pylint.main]
+py-version = "3.12"
+jobs = 0
+
+[tool.pylint.format]
+max-line-length = 100
+
+[tool.pylint.messages_control]
+disable = [
+    "missing-module-docstring",
+    "missing-class-docstring",
+    "missing-function-docstring",
+]
+
+[tool.pylint.design]
+max-args = 6
+max-attributes = 10
+max-branches = 12
+max-returns = 6
+max-statements = 50
+
+[tool.pylint.basic]
+good-names = [
+    "i",
+    "j",
+    "k",
+    "x",
+    "y",
+    "id",
+    "db",
+    "ip",
+]
+
+[tool.pylint.variables]
+allow-global-unused-variables = false
+
+[dependency-groups]
+dev = [
+    "pylint>=4.1.2",
+]
