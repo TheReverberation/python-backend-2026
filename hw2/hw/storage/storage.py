@@ -2,7 +2,7 @@ from collections import Counter
 from dataclasses import dataclass
 from typing import Self
 
-from hw2.hw.storage.models import ItemEntity, ItemInfo, ItemInfoPatch
+from storage.models import ItemEntity, ItemInfo, ItemInfoPatch
 
 from .helpers import yota
 from .models import Cart, CartItem

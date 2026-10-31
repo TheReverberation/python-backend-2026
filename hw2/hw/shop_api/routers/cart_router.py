@@ -2,9 +2,8 @@ from http import HTTPStatus
 from typing import Annotated
 
 from fastapi import APIRouter, HTTPException, Query, Response
-
-from hw2.hw.shop_api.contracts import CartListRequest, CartResponse
-from hw2.hw.storage import storage
+from shop_api.contracts import CartListRequest, CartResponse
+from storage import storage
 
 router = APIRouter(prefix="/cart")
 
