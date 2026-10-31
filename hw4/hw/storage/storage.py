@@ -31,6 +31,7 @@ class Storage:
             row = ItemRow(**asdict(item))
             session.add(row)
             session.flush()
+            session.refresh(row)
             return item_entity(row)
 
     def get_item(self, id: int) -> ItemEntity | None:

@@ -96,7 +96,7 @@
 Чтобы запустить тесты только для этого задания вызовите:
 
 ```sh
-pytest -vv --showlocals --strict ./hw4/hw/test_homework2.py
+python -m pytest -vv --showlocals ./hw4/hw/test_service.py
 ```
 
 Если получаете ошибку на подобии `No module named 'shop_api'`
@@ -131,8 +131,21 @@ docker compose up -d --wait postgres
 docker compose run --rm --build local python -m pytest -v
 ```
 
-- `test_homework2.py` — проверяет REST API товаров и корзин.
-- `test_postgres.py` — проверяет хранение данных, удалённые товары в корзине и одновременное добавление товаров.
+`test_service.py` содержит все тесты: REST API товаров и корзин, дополнительные сценарии HW5, хранение данных в PostgreSQL и одновременное добавление товаров.
+
+PostgreSQL доступен на `localhost:7432`, внутри Docker — на `postgres:5432`.
+Перед запуском остановите старый контейнер PostgreSQL, если он занимает порт 7432.
+
+Для локального запуска из `hw4/hw` с виртуальным окружением в корне репозитория:
+
+```sh
+docker compose up -d --wait postgres
+../../.venv/bin/python -m pip install -r requirements.txt
+export DATABASE_URL=postgresql+psycopg://shop:shop@localhost:7432/shop
+../../.venv/bin/python -m pytest -v
+```
+
+Порог покрытия 95%, включая ветвления, задан в `pytest.ini`.
 
 Изоляция транзакций:
 
