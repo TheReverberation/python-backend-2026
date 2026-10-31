@@ -3,13 +3,12 @@ from typing import Annotated
 
 from fastapi import APIRouter, HTTPException, Query, Response
 from pydantic import NonNegativeInt, PositiveFloat, PositiveInt
-
-from hw2.hw.shop_api.contracts import (
+from shop_api.contracts import (
     ItemPatchRequest,
     ItemRequest,
     ItemResponse,
 )
-from hw2.hw.storage import storage
+from storage import storage
 
 router = APIRouter(prefix="/item")
 

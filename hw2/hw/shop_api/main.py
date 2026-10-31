@@ -1,10 +1,11 @@
 from fastapi import FastAPI
-
-from hw2.hw.shop_api.routers import cart_router, item_router
-from hw2.hw.storage import storage
-from hw2.hw.storage.models import ItemInfo
+from prometheus_fastapi_instrumentator import Instrumentator
+from shop_api.routers import cart_router, item_router
+from storage import storage
+from storage.models import ItemInfo
 
 app = FastAPI(title="Shop API")
+Instrumentator().instrument(app).expose(app)
 
 app.include_router(item_router)
 app.include_router(cart_router)

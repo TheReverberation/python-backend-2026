@@ -1,8 +1,7 @@
 from __future__ import annotations
 
 from pydantic import BaseModel, ConfigDict, NonNegativeFloat, NonNegativeInt, PositiveInt
-
-from hw2.hw.storage.models import CartItem, ItemEntity, ItemInfo, ItemInfoPatch
+from storage.models import CartItem, ItemEntity, ItemInfo, ItemInfoPatch
 
 
 class ItemResponse(BaseModel):
