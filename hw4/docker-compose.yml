@@ -1,0 +1,2 @@
+include:
+  - hw/docker-compose.yml
